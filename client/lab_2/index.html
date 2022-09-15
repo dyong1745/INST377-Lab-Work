@@ -1,4 +1,4 @@
-Replace this with your complete HTML from Lab 1
+<!--Replace this with your complete HTML from Lab 1
 
 Hook it up to CSS by including style.css in the <head> tag
 
@@ -7,4 +7,53 @@ For example: <div class="selector">
 
 You should not need to edit the CSS to do this, only the HTML.
 
-Don't forget to add an actual set of image descriptions to your image carousel.
+Don't forget to add an actual set of image descriptions to your image carousel.-->
+<!DOCTYPE html> 
+<html lang = 'en'> 
+  <head>
+    <meta charset = 'UTF-8'/>
+    <title>Lab 1</title>
+    <link rel = 'stylesheet' href = 'style.css'/>
+  </head>
+
+  <body>
+    <div class = 'wrapper'>
+      <header class = 'header'><h1>Da Yong's Labs for INST377</h1></header>
+      <div class = 'container'>
+        <div class = 'left_section box'>
+          <h3>Albums</h3>
+          <ol class = 'box'>
+            <li>Clozee - <em>Harmony</em></li>
+            <li>Killswitch Engage - <em>As Daylight Dies</em></li>
+            <li>Lisa Hannigan - <em>At Swim</em></li>
+            <li>K/DA - <em>ALL OUT</em></li>
+            <li>Yuna - <em>Yuna</em></li>
+          </ol>
+        </div>
+        <div class = 'right_section box'>
+          <h3>Image Carousel</h3>
+          <div class = 'grid'>
+            <img src = 'images/mochi.gif' alt = 'GIF of mochi bouncing up and down'>
+            <img src = 'images/mochi.jpg' alt = 'JPG of mochi with halo'>
+            <img src = 'images/mochi.png' alt = 'PNG of static mochi'>
+            <img src = 'images/mochi.svg' alt = 'SVG of mochi with extenders/compressors'>
+          </div>
+          <div class = 'box'>
+            <p>
+              This image carousel features 4 variations of a mochi image that each represent different image file types. These showcase the strengthes of each image type.<br/>
+              The first mochi &#40leftmost&#41 is a GIF, which is an image file type that supports short animations. Due to their limited number of colors, 
+              the file size is quite small and can be loaded quickly on a webpage.<br/>
+              The second mochi is a JPG, which is a very common image file type that is good for high resolution pictures. However, as the file size reduces, so does the image quality.
+              There is a visible halo around this mochi because JPGs do not support transparent pixels.<br/>
+              The third mochi is a PNG, which can provide a large variety colors and even transparency. The file can be compressed without losing image quality.<br/>
+              The last mochi is a SVG, which is an image file type that is designed to render well no matter the size. They can work well with many different web standards like CSS, DOM, JS, etc.
+            </p>
+            <p>These four mochis also happen to be in a band together called "Ana-mochi-sis", and they will be releasing a new album very soon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class = 'footer'><strong>Link to GitHub account: </strong><a href = 'https://github.com/dyong1745' target = '_blank' rel = 'noopener noreferrer'>dyong1745</a></footer>
+  </body>
+
+</html>
