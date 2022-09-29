@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
-  const squares = Array.from(document.querySelectorAll('.grid.div'));
+  let squares = Array.from(document.querySelectorAll('.grid div'));
   const ScoreDisplay = document.querySelector('#score');
   const StartBtn = document.querySelector('#start-button');
   const width = 10;
@@ -43,4 +43,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tetros = [lTetromino, zTetromino, oTetromino, iTetromino, tTetromino];
 
+  let currentPosition = 4;
+  let currentRotation = 0;
+  // Pick random tetromino and its first rotation
+  let random = Math.floor(Math.random() * tetros.length);
+  console.log(random);
+  let current = tetros[random][currentRotation];
+
+  // draw tetromino
+  function draw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.add('tetromino');
+    });
+  }
+
+  // remove tetromino
+  function undraw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove('tetromino');
+    });
+  }
+
+  function freeze() {
+    if (current.some((index) => squares[currentPosition + index + width].classList.contains('taken'))) {
+      current.forEach((index) => squares[currentPosition + index].classList.add('taken'));
+      random = Math.floor(Math.random() * tetros.length);
+      current = tetros[random][currentRotation];
+      currentPosition = 4;
+      draw();
+    }
+  }
+  
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+    freeze();
+  }
+
+  function moveLeft() {
+    undraw();
+    const isAtLeftEdge = current.some((index) => (currentPosition + index) % width === 0);
+    if (!isAtLeftEdge) currentPosition -= 1;
+    if (current.some((index) => squares[currentPosition + index].classList.contains('taken'))) {
+      currentPosition += 1;
+    } 
+    draw();
+  }
+
+  function control(e) {
+    if (e.keyCode === 37) {
+      moveLeft();
+    }
+  }
+
+  document.addEventListener('keyup', control);
+
+  timerId = setInterval(moveDown, 500);
 });
