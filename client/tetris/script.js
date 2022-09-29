@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ScoreDisplay = document.querySelector('#score');
   const StartBtn = document.querySelector('#start-button');
   const width = 10;
+  let nextRandom = 0;
 
   // The tetrominos
   const lTetromino = [
@@ -67,10 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function freeze() {
     if (current.some((index) => squares[currentPosition + index + width].classList.contains('taken'))) {
       current.forEach((index) => squares[currentPosition + index].classList.add('taken'));
-      random = Math.floor(Math.random() * tetros.length);
+      random = nextRandom;
+      nextRandom = Math.floor(Math.random() * tetros.length);
       current = tetros[random][currentRotation];
       currentPosition = 4;
       draw();
+      // eslint-disable-next-line no-use-before-define
+      displayShape();
     }
   }
   
@@ -127,4 +131,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   timerId = setInterval(moveDown, 500);
 
+  const displaySquares = document.querySelectorAll('.mini-grid div');
+  const displayWidth = 4;
+  let displayIndex = 0;
+
+  const upNextTetro = [
+    [1, displayWidth + 1, displayWidth * 2 + 1, 2],
+    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
+    [1, displayWidth, displayWidth + 1, displayWidth + 2],
+    [0, 1, displayWidth, displayWidth + 1],
+    [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1]
+  ];
+
+  function displayShape() {
+    displaySquares.forEach((square) => {
+      square.classList.remove('tetromino');
+    });
+    upNextTetro[nextRandom].forEach((index) => {
+      displaySquares[displayIndex + index].classList.add('tetromino');
+    });
+  }
 });
