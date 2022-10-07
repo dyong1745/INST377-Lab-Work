@@ -35,12 +35,12 @@ async function mainEvent() { // the async keyword means we can make API requests
       // It does not include any of your form values, though
     */
 
-    const results = await fetch('/api/foodServicePG');
+    // const results = await fetch('/api/foodServicePG');
+    const fetchQuery = new URLSearchParams(formProps);
+    const results = await fetch(`/api/foodServicePG?${fetchQuery}`);
     /*
    ## Get request with query parameters
-
       const results = await fetch(`/api/foodServicePG?${new URLSearchParams(formProps)}`);
-
       The above request uses "string interpolation" to include an encoded version of your form values
       It works because it has a ? in the string
       Replace line 37 with it, and try it with a / instead to see what your server console says
@@ -53,6 +53,7 @@ async function mainEvent() { // the async keyword means we can make API requests
     // This changes the response from the GET into data we can use - an "object"
     const arrayFromJson = await results.json();
     console.table(arrayFromJson.data); // this is called "dot notation"
+    console.log('Array: ', arrayFromJson.data.length);
     // arrayFromJson.data - we're accessing a key called 'data' on the returned object
     // it initially contains all 1,000 records from your request
   });
