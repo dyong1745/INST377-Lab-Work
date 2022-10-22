@@ -214,6 +214,7 @@ form input {
     display: block; /* this turns the label text into a box we can set margins on */
     margin-bottom: 0.5rem;
   }
+
 /* 
     New code bonus: pure CSS data loading icon
     This comes from loading.io/css - it's nice to show that something is happening!
@@ -225,6 +226,11 @@ form input {
     width: 80px;
     height: 80px;
   }
+
+  .lds-ellipsis_hidden {
+    display: hidden;
+  }
+  
   .lds-ellipsis div {
     position: absolute;
     top: 33px;
