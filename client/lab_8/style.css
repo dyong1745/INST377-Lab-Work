@@ -214,7 +214,16 @@
       display: block; /* this turns the label text into a box we can set margins on */
       margin-bottom: 0.5rem;
     }
-  
+
+    /* MAP STYLES*/
+    #map {
+        display: block;
+        width: 400px;
+        border: 2px dashed;
+        height: 380px; 
+        margin-bottom: 1rem;
+    }
+
   /* 
       New code bonus: pure CSS data loading icon
       This comes from loading.io/css - it's nice to show that something is happening!
