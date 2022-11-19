@@ -219,8 +219,8 @@
     #map {
         display: block;
         width: 400px;
-        border: 2px dashed;
         height: 380px; 
+        border: 2px dashed;
         margin-bottom: 1rem;
     }
 

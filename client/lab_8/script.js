@@ -1,11 +1,6 @@
 /* eslint-disable max-len */
 
 /*
-  Hook this script to index.html
-  by adding `<script src="script.js">` just before your closing `</body>` tag
-*/
-
-/*
   ## Utility Functions
     Under this comment place any utility functions you need - like an inclusive random number selector
     https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -20,7 +15,7 @@ function getRandomIntInclusive(min, max) {
 function injectHTML(list) {
   console.log('fired injectHTML');
   const target = document.querySelector('#restaurant_list');
-  target.innerHTML = '';
+  target.innerHTML = "";
 
   const listEl = document.createElement('ol');
   target.appendChild(listEl);
@@ -83,6 +78,30 @@ function filterList(array, filterInputValue) {
   return newArray;
 }
 
+function initMap() {
+  const map = L.map('map').setView([38.9897, -76.9378], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+  return map;
+}
+
+function markerPlace(array, map) {
+  /* const marker = L.marker([51.5, -0.09]).addTo(map); */
+  map.eachLayer((layer) => {
+    if (layer instanceof L.Marker) {
+      layer.remove();
+    }
+  });
+  array.forEach((item, index) => {
+    const {coordinates} = item.geocoded_column_1;
+    L.marker([coordinates[1], coordinates[0]]).addTo(map);
+    if (index === 0) {
+      map.setView([coordinates[1], coordinates[0]], 10);
+    }
+  });
+}
+
 async function mainEvent() {
   /*
         ## Main Event
@@ -90,7 +109,7 @@ async function mainEvent() {
           When you're not working in a heavily-commented "learning" file, this also is more legible
           If you separate your work, when one piece is complete, you can save it and trust it
       */
-
+  const pageMap = initMap();
   // the async keyword means we can make API requests
   const form = document.querySelector('.main_form'); // get your main form so you can do JS with it
   const submit = document.querySelector('#get-resto'); // get a reference to your submit button
@@ -139,6 +158,7 @@ async function mainEvent() {
     console.log('input', event.target.value);
     const newFilteredList = filterList(currentList, event.target.value);
     injectHTML(newFilteredList);
+    markerPlace(newFilteredList, pageMap);
   });
 
   // And here's an eventListener! It's listening for a "submit" button specifically being clicked
@@ -153,6 +173,7 @@ async function mainEvent() {
 
     // And this function call will perform the "side effect" of injecting the HTML list for you
     injectHTML(currentList);
+    markerPlace(currentList, pageMap);
 
     // By separating the functions, we open the possibility of regenerating the list
     // without having to retrieve fresh data every time
@@ -161,8 +182,8 @@ async function mainEvent() {
 }
 
 /*
-      This last line actually runs first!
-      It's calling the 'mainEvent' function at line 57
-      It runs first because the listener is set to when your HTML content has loaded
-    */
+    This last line actually runs first!
+    It's calling the 'mainEvent' function at line 57
+    It runs first because the listener is set to when your HTML content has loaded
+*/
 document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
